@@ -126,9 +126,13 @@ if st.button("Generate Optimized Schedule"):
 
     prob += study <= 4
 
+    prob += study >= 1
+
     prob += creativity >= 1
 
     prob += spritual >= 1
+
+    prob += screen >= 0.25
 
     # Solve
     prob.solve()
