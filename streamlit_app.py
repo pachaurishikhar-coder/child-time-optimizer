@@ -112,7 +112,7 @@ if st.button("Generate Optimized Schedule"):
         + creativity
         + screen
         + sleep
-        +
+        + spritual
         == 24
     )
 
