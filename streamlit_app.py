@@ -158,10 +158,6 @@ if st.button("Generate Optimized Schedule"):
     )
 
     st.write(
-        f"😴 Sleep Hours: {round(value(sleep), 2)}"
-    )
-
-    st.write(
         f"🙏 Spritual Hours: {round(value(spritual), 2)}"
     )
 
