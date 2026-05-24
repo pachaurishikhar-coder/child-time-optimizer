@@ -112,6 +112,7 @@ if st.button("Generate Optimized Schedule"):
         + creativity
         + screen
         + sleep
+        +
         == 24
     )
 
@@ -121,7 +122,11 @@ if st.button("Generate Optimized Schedule"):
 
     prob += play >= 2
 
+    prob += play <= 4
+
     prob += study <= 4
+
+    prob += creativity >= 1
 
     prob += spritual >= 1
 
