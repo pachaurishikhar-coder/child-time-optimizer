@@ -46,23 +46,29 @@ play_priority = st.slider(
     "Play Priority",
     1,
     10,
-    10
+    8
 )
 
 creativity_priority = st.slider(
     "Creativity Priority",
     1,
     10,
-    8
+    7
 )
 
 sleep_priority = st.slider(
     "Sleep Priority",
     1,
     10,
-    10
+    9
 )
 
+spritual_priority = st.slider(
+    "Spritual Priority",
+    1,
+    10,
+    6
+)
 
 # -----------------------------
 # BUTTON
@@ -87,13 +93,16 @@ if st.button("Generate Optimized Schedule"):
 
     sleep = LpVariable("Sleep", lowBound=0)
 
+    spritual = LpVariable("Spritual", lowBound=0)
+
     # Objective Function
     prob += (
         study_priority * study
         + play_priority * play
         + creativity_priority * creativity
         + sleep_priority * sleep
-        - 5 * screen
+        + spritual_priority * spritual
+        - 2.55 * screen
     )
 
     # Constraints
@@ -106,13 +115,15 @@ if st.button("Generate Optimized Schedule"):
         == 24
     )
 
-    prob += sleep >= sleep_goal
+    prob += sleep == sleep_goal
 
     prob += screen <= max_screen_time
 
     prob += play >= 2
 
     prob += study <= 4
+
+    prob += spritual >= 1
 
     # Solve
     prob.solve()
@@ -146,6 +157,14 @@ if st.button("Generate Optimized Schedule"):
         f"😴 Sleep Hours: {round(value(sleep), 2)}"
     )
 
+    st.write(
+        f"😴 Sleep Hours: {round(value(sleep), 2)}"
+    )
+
+    st.write(
+        f"🙏 Spritual Hours: {round(value(spritual), 2)}"
+    )
+
     st.subheader("🧠 AI Insight")
 
     if value(screen) > 2:
@@ -158,7 +177,7 @@ if st.button("Generate Optimized Schedule"):
             "Healthy screen balance detected."
         )
 
-    if value(sleep) < 9:
+    if value(sleep) < 8:
         st.warning(
             "Sleep duration may be insufficient."
         )
