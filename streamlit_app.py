@@ -97,6 +97,8 @@ if st.button("Generate Optimized Schedule"):
 
     spritual = LpVariable("Spritual", lowBound=0)
 
+    misc = LpVariable("Misc", lowBound=1)
+
 
     # Objective Function
     prob += (
@@ -116,6 +118,7 @@ if st.button("Generate Optimized Schedule"):
         + sleep
         + school
         + spritual
+        + misc
         == 24
     )
 
@@ -139,7 +142,9 @@ if st.button("Generate Optimized Schedule"):
 
     prob += screen >= 0.25
 
-    # Solve
+    prob += misc == 1
+    
+        # Solve
     prob.solve()
 
     # Results
