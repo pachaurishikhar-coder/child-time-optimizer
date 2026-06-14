@@ -21,11 +21,18 @@ age = st.number_input(
     value=7
 )
 
-sleep_goal = st.slider(
-    "Sleep Goal (Hours)",
+sleep_time = st.slider(
+    "Sleep Time (Hours)",
     6,
     12,
     10
+)
+
+school_time = st.slider(
+    "School Time (Hours)",
+    0,
+    8,
+    4
 )
 
 max_screen_time = st.slider(
@@ -54,13 +61,6 @@ creativity_priority = st.slider(
     1,
     10,
     7
-)
-
-sleep_priority = st.slider(
-    "Sleep Priority",
-    1,
-    10,
-    9
 )
 
 spritual_priority = st.slider(
@@ -93,14 +93,16 @@ if st.button("Generate Optimized Schedule"):
 
     sleep = LpVariable("Sleep", lowBound=0)
 
+    school = LpVariable("School", lowBound=0)
+
     spritual = LpVariable("Spritual", lowBound=0)
+
 
     # Objective Function
     prob += (
         study_priority * study
         + play_priority * play
         + creativity_priority * creativity
-        + sleep_priority * sleep
         + spritual_priority * spritual
         - 2.55 * screen
     )
@@ -112,15 +114,18 @@ if st.button("Generate Optimized Schedule"):
         + creativity
         + screen
         + sleep
+        + school
         + spritual
         == 24
     )
 
-    prob += sleep == sleep_goal
+    prob += sleep == sleep_time
+
+    prob += school == school_time
 
     prob += screen <= max_screen_time
 
-    prob += play >= 2
+    prob += play >= 1
 
     prob += play <= 4
 
