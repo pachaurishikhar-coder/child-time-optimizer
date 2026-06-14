@@ -184,6 +184,10 @@ if st.button("Generate Optimized Schedule"):
         f"🏫 School Hours: {round(value(school), 2)}"
     )
 
+    st.write(
+        f"🧩 Miscellaneous Hours: {round(value(misc), 2)}"
+    )
+
     st.subheader("🧠 AI Insight")
 
     if value(screen) > 2:
